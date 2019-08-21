@@ -18,6 +18,7 @@ function addTodo (event) {
     // this sets it so that the input, which is in the form, is added,
     // it will add it to the innerText of the item (which is the list item
     // from above)
+    item.addEventListener('click', completeTodo)
 
     const button = document.createElement('button')
     // this creates a new button element and ties it to a var of the same name
@@ -25,7 +26,9 @@ function addTodo (event) {
     // sets the inner text of the button to be "x"
     button.addEventListener('click', removeTodo)
     // similar to what's at the very top. Looks for var button and adds
-    // 
+    // a thing that looks for a click, and runs the function after
+    item.append(button)
+    // adds the button to the list
 
     const list = document.querySelector('ul')
     // append and appendChild will both work
@@ -34,3 +37,19 @@ function addTodo (event) {
     // this ADDS the li item from above to the ul list
 }
 
+function removeTodo(event) {
+    // console.dir(event.target.parentNode)
+    event.target.parentNode.remove()
+    // the above looks up the click event. The target of the event
+    // is where I clicked (the x button). The target object has a parentnode
+    // which is li. So when we type parentNode we're going inside of that li.
+    // then we're removing it.
+}
+
+function completeTodo(event) {
+    if (event.target.getAttribute('aria-checked') !== 'true') {
+        event.target.setAttribute('aria-checked', 'true')
+    } else {
+        event.target.setAttribute('aria-checked', 'false')
+    }
+}
